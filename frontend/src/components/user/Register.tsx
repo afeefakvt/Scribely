@@ -12,7 +12,7 @@ import {
 import { IUser } from "../../interfaces/interface";
 import {Link as RouterLink} from 'react-router-dom'
 import { InputAdornment, IconButton } from '@mui/material';
-import { Email, Visibility, VisibilityOff } from '@mui/icons-material';
+import {  Visibility, VisibilityOff } from '@mui/icons-material';
 import { register } from "../../api/userApi";
 import { useNavigate } from "react-router-dom";
 import { validateRegisterForm } from "../../utils/validations";
