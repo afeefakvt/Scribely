@@ -69,9 +69,7 @@ export const login = async(req:Request,res:Response):Promise<void>=>{
 
 export const refreshAccessToken = async(req:Request,res:Response):Promise<void>=>{
     try {
-       const refreshToken = req.cookies.refreshToken
-       console.log(refreshToken,"refrssh");
-       
+       const refreshToken = req.cookies.refreshToken       
        if(!refreshToken){
         console.error("No refresh token found,logging out")
         res.clearCookie("refreshToken")
@@ -80,7 +78,7 @@ export const refreshAccessToken = async(req:Request,res:Response):Promise<void>=
        } 
 
        const decoded = verifyRefreshToken(refreshToken) as {id:string}
-       console.log(decoded,"decode");
+    //    console.log(decoded,"decode");
        const user = await User.findById(decoded.id)
        if(!user){
         res.clearCookie('refreshToken');

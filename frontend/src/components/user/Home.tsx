@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Box, Card, CardContent, Typography, CardMedia, Container, CircularProgress, Alert } from "@mui/material";
 import { getBlogs } from "../../api/blogApi";
 import { Blog } from "../../interfaces/interface";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
@@ -11,9 +12,7 @@ const Home = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const res = await getBlogs()
-        console.log(res.blogs,"dsssssssssssscv");
-        
+        const res = await getBlogs()        
         setBlogs(res.blogs);
       } catch (err: any) {
         setError(err.response?.data?.message || "Error fetching blogs");
@@ -43,6 +42,7 @@ const Home = () => {
         }}
       >
         {blogs.map((blog) => (
+          <Link to={`/blogs/${blog._id}`} style={{ textDecoration: "none" }}>
           <Card key={blog._id} sx={{ width: 300 }}>
             {blog.imageUrl && (
               <CardMedia
@@ -62,6 +62,7 @@ const Home = () => {
               </Typography>
             </CardContent>
           </Card>
+          </Link>
         ))}
       </Box>
     </Container>

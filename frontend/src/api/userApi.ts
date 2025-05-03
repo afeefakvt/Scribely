@@ -25,7 +25,7 @@ export const login = async(userData:LoginData)=>{
                 user:response.data.user,
                 isAuthenticated:true
             }))
-            Cookies.set('authToken',accessToken,{expires:1/1440})
+            Cookies.set('authToken',accessToken,{expires:15/1440})
         }else{
             console.log("not logged in");
             
@@ -46,5 +46,15 @@ export const logoutUser = async()=>{
         throw error.response?.data || new Error("Something went wrong");        
 
         
+    }
+}
+
+export const getMyBlogs = async()=>{
+    try {
+        const response = await axiosInstance.get('/myBlogs')
+        return response.data
+    } catch (error:any) {
+        throw error.response?.data || new Error("Something went wrong");        
+
     }
 }

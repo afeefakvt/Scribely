@@ -1,4 +1,4 @@
-import { useState,ChangeEvent,FormEvent } from "react"
+import { useState,ChangeEvent,FormEvent, useEffect } from "react"
 import { LoginData } from "../../interfaces/interface"
 import {
     TextField,
@@ -15,6 +15,8 @@ import { InputAdornment, IconButton } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from "react-router-dom";
 import { login } from "../../api/userApi";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 
 
@@ -28,6 +30,14 @@ const Login = () => {
     const [success,setSuccess] = useState<string>("")
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate()
+    const token = useSelector((state:RootState)=>state.auth.token)
+
+
+    useEffect(()=>{
+      if(token){
+        navigate('/',{replace:true})
+      }
+    },[token,navigate])
 
     const togglePasswordVisibility = () => {
         setShowPassword(prev => !prev);

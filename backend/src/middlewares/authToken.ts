@@ -13,7 +13,7 @@ export const authToken = (req:AuthRequest,res:Response,next:NextFunction)=>{
             return;
         }
         const decoded = verifyAccessToken(token) as {id:string};
-        console.log(decoded,"deccccccoded");
+        // console.log(decoded,"deccccccoded");
         
         req.userId = decoded.id
         next();

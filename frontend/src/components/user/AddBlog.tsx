@@ -19,6 +19,7 @@ const AddBlog = () => {
   const [image, setImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
   const navigate = useNavigate();
 
   const user = useSelector((state: RootState) => state.auth.user);
@@ -42,8 +43,11 @@ const AddBlog = () => {
         return;
     }
     try {
-        const response = await publishBlog(formData)
-        navigate('/')
+        await publishBlog(formData)
+        setSuccess("Blog added successfully");
+        setTimeout(()=>{
+            navigate('/')
+        },1500)
     } catch (error) {
         console.error("Failed to add blog", error);
         
@@ -57,6 +61,7 @@ const AddBlog = () => {
       </Typography>
 
       {error && <Alert severity="error">{error}</Alert>}
+      {success && <Alert severity="success">{success}</Alert>}
 
       <Box component="form" onSubmit={handleSubmit}>
         <TextField

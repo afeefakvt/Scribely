@@ -28,7 +28,7 @@ const userSlice = createSlice({
             state.token = action.payload.accessToken,
             state.user = action.payload.user,
             state.isAuthenticated = action.payload.isAuthenticated,
-            Cookies.set("authToken",action.payload.accessToken,{expires:1/1440})
+            Cookies.set("authToken",action.payload.accessToken,{expires:15/1440})
 
         },
         logout:(state)=>{

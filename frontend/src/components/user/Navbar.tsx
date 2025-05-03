@@ -83,7 +83,10 @@ const Navbar = () => {
               open={Boolean(anchorEl)}
               onClose={handleMenuClose}
             >
+
+              <MenuItem onClick={()=>{navigate('/');handleMenuClose()}}>Home</MenuItem>
               <MenuItem onClick={()=>{navigate('/addBlog');handleMenuClose()}}>Add Blog</MenuItem>
+              <MenuItem onClick={()=>{navigate('/myFeed');handleMenuClose()}}>My feed</MenuItem>
               <MenuItem onClick={handleLogout}>Logout</MenuItem>
             </Menu>
           </Box>

@@ -14,7 +14,7 @@ if(!JWT_REFRESH_SECRET){
 }
 
 export const generateAccessToken = (payload:object):string=>{    
-    return jwt.sign(payload,JWT_ACCESS_SECRET,{expiresIn:"1m"})
+    return jwt.sign(payload,JWT_ACCESS_SECRET,{expiresIn:"15m"})
 }
 export const generateRefreshToken = (payload:object):string=>{
     return jwt.sign(payload,JWT_REFRESH_SECRET,{expiresIn:"7d"})
