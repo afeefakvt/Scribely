@@ -17,6 +17,7 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import { Pagination } from "@mui/material";
 import { Blog } from "../../interfaces/interface";
 import { getMyBlogs } from "../../api/userApi";
 import { useNavigate } from "react-router-dom";
@@ -29,6 +30,13 @@ const MyFeed = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [selectedBlogId, setSelectedBlogId] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const blogsPerPage = 6;
+  const indexOfLastBlog = currentPage * blogsPerPage;
+  const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
+  const currentBlogs = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
+  const totalPages = Math.ceil(blogs.length / blogsPerPage);
 
   useEffect(() => {
     const fetchMyBlogs = async () => {
@@ -71,7 +79,7 @@ const MyFeed = () => {
         <Typography>No blogs posted yet.</Typography>
       ) : (
         <Box display="flex" flexWrap="wrap" gap={3} justifyContent="center">
-          {blogs.map((blog) => (
+          {currentBlogs.map((blog) => (
             <Card key={blog._id} sx={{ width: 300 }}>
               {blog.imageUrl && (
                 <CardMedia
@@ -147,6 +155,14 @@ const MyFeed = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Box sx={{ display: "flex", justifyContent: "center", mt: 4 }}>
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={(_, value) => setCurrentPage(value)}
+          color="primary"
+        />
+      </Box>
     </Container>
   );
 };

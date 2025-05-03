@@ -12,9 +12,10 @@ import {
 import { IUser } from "../../interfaces/interface";
 import {Link as RouterLink} from 'react-router-dom'
 import { InputAdornment, IconButton } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Email, Visibility, VisibilityOff } from '@mui/icons-material';
 import { register } from "../../api/userApi";
 import { useNavigate } from "react-router-dom";
+import { validateRegisterForm } from "../../utils/validations";
 
 
 const Register = ()=>{
@@ -29,6 +30,8 @@ const Register = ()=>{
     const [success,setSuccess] = useState<string>('');
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate()
+    const [formErrors,setFormErrors] = useState<{name?:string,email?:string,password?:string,confirmPassword?:string}>({})
+
 
     const togglePasswordVisibility = () => {
         setShowPassword(prev => !prev);
@@ -45,10 +48,11 @@ const Register = ()=>{
         e.preventDefault()
         setError('')
         setSuccess('')
-        if (formData.password !== formData.confirmPassword) {
-            setError("Passwords do not match");
-            return;
-          }
+        const errors = validateRegisterForm(formData.name,formData.email,formData.password,formData.confirmPassword)
+        setFormErrors(errors)
+        if (Object.keys(errors).length > 0) {
+          return;
+        }
         try {
             await register(formData)
             setSuccess("Registration Successfull")
@@ -56,7 +60,7 @@ const Register = ()=>{
                 navigate('/login')
             },1500)
         } catch (error:any) {
-            setError(error.response?.data?.message || "registration failed")
+            setError(error.message)
             
         }
     }
@@ -80,6 +84,8 @@ const Register = ()=>{
               onChange={handleChange}
               margin="normal"
               required
+              error={Boolean(formErrors.name)}
+              helperText={formErrors.name}
             />
             <TextField
               fullWidth
@@ -90,6 +96,8 @@ const Register = ()=>{
               onChange={handleChange}
               margin="normal"
               required
+              error={Boolean(formErrors.email)}
+              helperText={formErrors.email}
             />
             <TextField
               fullWidth
@@ -100,6 +108,8 @@ const Register = ()=>{
               onChange={handleChange}
               margin="normal"
               required
+              error={Boolean(formErrors.password)}
+              helperText={formErrors.password}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -120,6 +130,8 @@ const Register = ()=>{
               onChange={handleChange}
               margin="normal"
               required
+              error={Boolean(formErrors.confirmPassword)}
+              helperText={formErrors.confirmPassword}
             />
             <Button
               type="submit"

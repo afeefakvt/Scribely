@@ -36,12 +36,12 @@ export const login = async(req:Request,res:Response):Promise<void>=>{
 
         const user = await User.findOne({email})
         if(!user){
-            res.status(HTTP_STATUS.UNAUTHORIZED).json({message:"Invalid email or password"})
+            res.status(HTTP_STATUS.UNAUTHORIZED).json({message:"Invalid email "})
             return;
         }
         const isMatch = await comparePassword(password,user.password);
         if(!isMatch){
-            res.status(HTTP_STATUS.UNAUTHORIZED).json({message:"Invalid email or password"})
+            res.status(HTTP_STATUS.UNAUTHORIZED).json({message:"Invalid password"})
             return;
         }
 

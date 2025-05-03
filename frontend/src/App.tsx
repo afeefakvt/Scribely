@@ -5,9 +5,9 @@ import Login from "./components/user/Login";
 import Navbar from "./components/user/Navbar";
 import AddBlog from "./components/user/AddBlog";
 import BlogDetails from "./components/user/BlogDetails";
-import UserProtected from "./components/protectedRoutes/userProtected";
+import UserProtected from "./components/protectedRoutes/UserProtected";
 import MyFeed from "./components/user/MyFeeds";
-import EditBlog from "./components/user/editBlog";
+import EditBlog from "./components/user/EditBlog";
 
 
 function App() {

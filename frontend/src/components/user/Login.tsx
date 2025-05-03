@@ -17,8 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../../api/userApi";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-
-
+import { validateLoginForm } from "../../utils/validations";
 
 const Login = () => {
     const [loginData,setLoginData] = useState<LoginData>({
@@ -31,6 +30,8 @@ const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate()
     const token = useSelector((state:RootState)=>state.auth.token)
+    const [formErrors, setFormErrors] = useState<{ email?: string, password?: string }>({})
+
 
 
     useEffect(()=>{
@@ -55,14 +56,19 @@ const Login = () => {
         e.preventDefault()
         setError('')
         setSuccess('')
+        const errors  = validateLoginForm(loginData.email,loginData.password);
+        setFormErrors(errors);
+        if (Object.keys(errors).length > 0) {
+          return;
+      }
         try {
-             await login(loginData);
+            await login(loginData);
             setSuccess('Login Success')
             setTimeout(()=>{
                 navigate('/')
             },1500)
-        } catch (error) {
-            
+        } catch (error:any) {
+            setError(error.message)
         }
     }
 
@@ -86,6 +92,8 @@ const Login = () => {
             onChange={handleChange}
             margin="normal"
             required
+            error={Boolean(formErrors.email)}
+            helperText={formErrors.email}
           />
           <TextField
             fullWidth
@@ -96,6 +104,8 @@ const Login = () => {
             onChange={handleChange}
             margin="normal"
             required
+            error={Boolean(formErrors.password)}
+            helperText={formErrors.password}
             InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
