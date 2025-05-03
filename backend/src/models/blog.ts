@@ -1,13 +1,13 @@
 import mongoose,{Document,Schema, trusted} from "mongoose"
 
-export interface IPost extends Document{
+export interface IBlog extends Document{
     title:string;
     content:string;
     imageUrl:string;
     author:mongoose.Types.ObjectId;
 }
 
-const postSchema = new Schema<IPost>(
+const blogSchema = new Schema<IBlog>(
     {
         title:{
             type:String,
@@ -18,7 +18,8 @@ const postSchema = new Schema<IPost>(
             required:true
         },
         imageUrl:{
-            type:String
+            type:String,
+            required:true
         },
         author:{
             type:mongoose.Schema.Types.ObjectId,
@@ -29,4 +30,4 @@ const postSchema = new Schema<IPost>(
     {timestamps:true}
 )
 
-export const Post = mongoose.model<IPost>('Post',postSchema)
+export const Blog = mongoose.model<IBlog>('Blog',blogSchema)

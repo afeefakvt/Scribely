@@ -58,8 +58,8 @@ const Login = () => {
 
   return (
     <Container maxWidth="sm">
-      <Paper elevation={3} sx={{ padding: 4, marginTop: 8 }}>
-        <Typography variant="h4" gutterBottom>
+      <Paper elevation={3} sx={{ padding: 4, marginTop: 20 }}>
+        <Typography variant="h5" gutterBottom>
           Login
         </Typography>
 

@@ -3,7 +3,7 @@ import { hashPassword,comparePassword } from "../utils/hash";
 import { User } from "../models/user";
 import { HTTP_STATUS } from "../constants/httpStatus";
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from "../utils/jwt";
-import { decode } from "punycode";
+ 
 
 export const register = async(req:Request,res:Response):Promise<void>=>{
     try {        
@@ -70,6 +70,8 @@ export const login = async(req:Request,res:Response):Promise<void>=>{
 export const refreshAccessToken = async(req:Request,res:Response):Promise<void>=>{
     try {
        const refreshToken = req.cookies.refreshToken
+       console.log(refreshToken,"refrssh");
+       
        if(!refreshToken){
         console.error("No refresh token found,logging out")
         res.clearCookie("refreshToken")
@@ -96,5 +98,18 @@ export const refreshAccessToken = async(req:Request,res:Response):Promise<void>=
         res.clearCookie("refreshToken");
         res.status(HTTP_STATUS.FORBIDDEN).json({message:"Invalid refresh token"});
         
+    }
+}
+
+export const logout = async(req:Request,res:Response):Promise<void>=>{
+    try {
+        res.clearCookie("refreshToken",{
+            httpOnly:true,
+            secure:process.env.NODE_ENV==="production",
+            sameSite:'strict'
+        })
+        res.status(HTTP_STATUS.OK).json({message:"Logged out successfully"})
+    } catch (error) {
+        res.status(HTTP_STATUS.INTERNAL_SERVER_ERROR).json({ message: "Internal server error", error });
     }
 }

@@ -4,6 +4,7 @@ import cors from 'cors';
 import path from 'path';
 import connectDB from './config/db';
 import userRoutes from './routes/userRoutes'
+import blogRoutes from './routes/blogRoutes';
 
 dotenv.config()
 
@@ -18,6 +19,7 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use('/api',userRoutes)
+app.use('/api',blogRoutes)
 
 
 const port = process.env.PORT || 3000

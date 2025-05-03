@@ -36,3 +36,15 @@ export const login = async(userData:LoginData)=>{
         throw error.response?.data || new Error("Something went wrong");        
     }
 }
+
+export const logoutUser = async()=>{
+    try {
+        const response = await axiosInstance.post('/logout')
+        return response.data
+
+    } catch (error:any) {
+        throw error.response?.data || new Error("Something went wrong");        
+
+        
+    }
+}
