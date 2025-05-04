@@ -67,7 +67,7 @@ const Register = ()=>{
 
     return(
         <Container maxWidth="sm">
-        <Paper elevation={3} sx={{ padding: 4, marginTop: 20 }}>
+        <Paper elevation={3} sx={{ padding: 4, marginTop: 17 }}>
           <Typography variant="h5" gutterBottom>
             Register
           </Typography>

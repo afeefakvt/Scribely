@@ -105,7 +105,7 @@ const EditBlog = () => {
             helperText={formErrors.content}
           />
           <Box mt={2}>
-            <Typography variant="subtitle1">Current Image:</Typography>
+            {/* <Typography variant="subtitle1">Current Image:</Typography> */}
             {imageUrl && (
               <Box mb={2}>
                 <img
