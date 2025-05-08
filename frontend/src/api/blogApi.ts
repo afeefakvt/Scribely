@@ -35,7 +35,11 @@ export const getBlogById = async(blogId:string)=>{
 }
 export const updateBlog =async(blogId:string,blogData:FormData)=>{
     try {
-        const response = await axiosInstance.put(`/blogs/${blogId}`,blogData)
+        const response = await axiosInstance.put(`/blogs/${blogId}`,blogData,{
+            headers:{
+                "Content-Type":"multipart/form-data"
+            }
+        })
         return response.data
         
     } catch (error:any) {

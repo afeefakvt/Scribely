@@ -71,8 +71,17 @@ const Home = () => {
               )}
               <CardContent>
                 <Typography variant="h6">{blog.title}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {blog.content.slice(0, 100)}...
+                <Typography
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{
+                    overflow: "hidden",
+                    display: "-webkit-box",
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: "vertical",
+                  }}
+                >
+                  {blog.content}
                 </Typography>
                 <Typography variant="caption" display="block" sx={{ mt: 1 }}>
                   By {blog.author.name} •{" "}
