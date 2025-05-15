@@ -104,7 +104,7 @@ export const logout = async(req:Request,res:Response):Promise<void>=>{
         res.clearCookie("refreshToken",{
             httpOnly:true,
             secure:process.env.NODE_ENV==="production",
-            sameSite:'strict'
+            sameSite:'none'
         })
         res.status(HTTP_STATUS.OK).json({message:"Logged out successfully"})
     } catch (error) {
