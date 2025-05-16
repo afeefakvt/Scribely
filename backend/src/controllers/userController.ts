@@ -52,12 +52,12 @@ export const login = async(req:Request,res:Response):Promise<void>=>{
         }
 
         const refreshToken = generateRefreshToken({id:user._id})
-        res.cookie("refreshToken",refreshToken),{
+        res.cookie("refreshToken",refreshToken,{
             httpOnly:true,
             secure:process.env.NODE_ENV==="production",
-            sameSite:'None',
+            sameSite:'none',
             maxAge: 7 * 24 * 60 * 60 * 1000,
-        }
+        });
 
         res.status(HTTP_STATUS.OK).json({message:"Login Successful",accessToken,user})
         return;
